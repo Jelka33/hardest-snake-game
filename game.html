@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hardest Snake Game | Game</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDXDQC3273"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BDXDQC3273');
+        </script>
+		
+		<style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+			.container {
+				position: relative;
+			}
+
+            #profileUsername {
+                position: absolute;
+				top: 5%;
+				right: 5%;
+                background-color: transparent;
+                color: white;
+                z-index: 1;
+            }
+
+            #title1 {
+                position: absolute;
+                top: 15%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 9.072vh;
+                z-index: 1;
+            }
+
+            #title2 {
+                position: absolute;
+                top: 25%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 9.072vh;
+                z-index: 1;
+            }
+			
+			#playBtn {
+				position: absolute;
+				top: 60%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+			
+			#settingsBtn {
+				position: absolute;
+				top: 71%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+			
+			#settOnScreenBtns {
+				position: absolute;
+				top: 10%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+			
+			#settDifficulty {
+				position: absolute;
+				top: 21%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+			
+			#toMainMenuBtn {
+				position: absolute;
+				top: 90%;
+				left: 10%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+			
+			#leftColorPresets {
+				position: absolute;
+				top: 31%;
+				left: 30%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+				
+				font-size: 50px;
+				border: none;
+				background-color: transparent;
+                background: url(images/left-arrow-white.png) no-repeat;
+                background-position: center;
+                border: 1px solid white;
+				color: white;
+			}
+			
+			#rightColorPresets {
+				position: absolute;
+				top: 31%;
+				left: 70%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+				
+				font-size: 50px;
+				border: none;
+				background-color: transparent;
+                background: url(images/right-arrow-white.png) no-repeat;
+                background-position: center;
+                border: 1px solid white;
+				color: white;
+			}
+			
+			#colorPresetText {
+				position: absolute;
+				top: 31.5%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 600px;
+				height: 10.672%;
+				z-index: 1;
+				
+				font-size: 30px;
+				font-family: Arial;
+				text-align: center;
+				border: none;
+				background-color: transparent;
+				color: white;
+			}
+			
+			#setColorPresetBtn {
+				position: absolute;
+				top: 70%;
+				left: 70%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+			
+			#settSnakeHeadColor {
+				position: absolute;
+				top: 70%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+			
+			#fromGametoMainMenuBtn {
+				position: absolute;
+				top: 65%;
+				left: 40%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+			
+			#playAgainBtn {
+				position: absolute;
+				top: 65%;
+				left: 60%;
+				transform: translate(-50%, -50%);
+				width: 15.625%;
+				height: 10.672%;
+				z-index: 1;
+			}
+
+            #toMainPageBtn {
+				position: absolute;
+				top: 5%;
+				left: 7%;
+				transform: translate(-50%, -50%);
+				width: 5.208%;
+				height: 5.336%;
+				z-index: 1;
+			}
+			
+			#playBtn:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#settingsBtn:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#settOnScreenBtns:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#settDifficulty:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#toMainMenuBtn:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#leftColorPresets:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#rightColorPresets:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#setColorPresetBtn:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#settSnakeHeadColor:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#fromGametoMainMenuBtn:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			#playAgainBtn:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+
+            #toMainPageBtn:hover {
+				transition: transform 0.2s;
+				transform: translate(-50%, -50%) scale(1.15) perspective(10px);
+			}
+			
+			.button {
+				border: 0.52vw solid #ffffff;
+				background-color: transparent;
+				color: white;
+                min-width: 100px;
+			}
+			
+			#gameCanvas {
+				z-index: 0;
+			}
+			
+			button.invisible {
+				background: transparent !important;
+				border: none;
+				font-size:0 !important;
+				outline: none !important;
+			}
+			
+			#controlLeft{
+				position: absolute;
+				margin: auto;
+				top: 10%;
+				left: 0px;
+				bottom: 10%;
+				width: 10%;
+			}
+			
+			#controlRight{
+				position: absolute;
+				margin: auto;
+				top: 10%;
+				right: 0px;
+				bottom: 10%;
+				width: 10%;
+			}
+			
+			#controlUp{
+				position: absolute;
+				margin: auto;
+				top: 0px;
+				left: 10%;
+				right: 10%;
+				width: 80%;
+				height: 10%;
+			}
+			
+			#controlDown{
+				position: absolute;
+				margin: auto;
+				bottom: 0px;
+				left: 10%;
+				right: 10%;
+				width: 80%;
+				height: 10%;
+			}
+
+			@media only screen and (max-width: 480px) {
+				#toMainPageBtn {
+					left: 15%;
+				}
+
+				#title1 {
+					font-size: 14vw;
+				}
+
+				#title2 {
+					width: 100%;
+					text-align: center;
+					font-size: 14vw;
+				}
+			}
+		</style>
+	</head>
+	<body style="margin: 0px">
+		<div class="container">
+			<canvas id="gameCanvas" style="display:block; background-color:#000000;">
+				Your browser don't support canvas
+			</canvas>
+            <a href="/hardest-snake-game/"><button class="button" id="toMainPageBtn">Main Page</button></a>
+            <div id="profileUsername"></div>
+            <h1 id="title1" style="color: #800000;">HARDEST</h1>
+            <h1 id="title2" style="color: #808080;">SNAKE GAME</h1>
+			<button class="button" id="playBtn" onclick="run_game()">Run Game</button>
+			<button class="button" id="settingsBtn" onclick="show_settings()">Settings</button>
+			<button class="button" id="fromGametoMainMenuBtn" onclick="keycode = 27">Main Menu</button>
+			<button class="button" id="playAgainBtn" onclick="keycode = 32">Play Again</button>
+			
+			<div id="controlBtns">
+				<button class="button invisible" id="controlLeft" onclick="keycode = 65"></button>
+				<button class="button invisible" id="controlRight" onclick="keycode = 68"></button>
+				<button class="button invisible" id="controlUp" onclick="keycode = 87"></button>
+				<button class="button invisible" id="controlDown" onclick="keycode = 83"></button>
+			</div>
+			<div id="settings">
+				<button class="button" id="settOnScreenBtns" onclick="change_onScreenBtns()">On screen controls outline:</button>
+				<button class="button" id="settDifficulty" onclick="change_difficulty()">Difficulty:</button>
+				<button id="leftColorPresets" onclick="colorPresetPrev()"></button>
+				<button id="rightColorPresets" onclick="colorPresetNext()"></button>
+				<p id="colorPresetText">Color preset:</p>
+				<button class="button" id="setColorPresetBtn" onclick="setColorPreset(colorPreset)">Select preset</button>
+				<button class="button" id="settSnakeHeadColor" onclick="change_snakeHeadColor()">Snake head different color:</button>
+				<button class="button" id="toMainMenuBtn" onclick="show_main_menu()">Back</button>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var keycode;
+			var canvas = document.getElementById("gameCanvas");
+			var ctx = canvas.getContext("2d");
+			
+			var width = window.innerWidth;
+			var height = window.innerHeight;
+			canvas.width  = width;
+			canvas.height = height;
+			
+			show_main_menu();
+			
+			var snake_color = "#ffffff";
+			var background_color = "#000000";
+			var food_color = "#008000";
+			var wall_color = "#800000";
+			
+			var snake_size = 5;
+			var snake_sizes = [10, 5, 1];
+			var snake_speed = 25;
+			var snake_speeds = [20, 25, 175];
+			var game_over;
+			var game_close;
+			var x;
+			var y;
+			var x_speed;
+			var y_speed;
+			var snake_pixels;
+			var snake_lenght;
+			var food_x;
+			var food_y;
+			var wall_pixels;
+			
+			var difficulty = "Normal";
+			var difficulties = ["Easy", "Normal", "Hard"];
+			document.getElementById("settDifficulty").innerHTML = "Difficulty: " + difficulty;
+			
+			var onScreenBtns = false;
+			document.getElementById("settOnScreenBtns").innerHTML = "On screen controls outline: " + (onScreenBtns ? "on" : "off");
+			
+			var snakeHeadDiffColor = false;
+			document.getElementById("settSnakeHeadColor").innerHTML = "Snake head different color: " + (snakeHeadDiffColor ? "on" : "off");
+			
+			var colorPresets = ["Default", "Inverted", "Classic"];
+			var colorPreset = "Default";
+			document.getElementById("colorPresetText").innerHTML = "Color preset: " + colorPreset;
+			
+			var is_gameover_drawn = false;
+			var is_best_score = false;
+			var is_mob = detectMob();
+            document.getElementById("profileUsername").innerHTML =
+                (window.localStorage.getItem("hsgProfileUsername") != null && window.localStorage.getItem("hsgProfileUsername") != "") ?
+                    "User: " + window.localStorage.getItem("hsgProfileUsername") : "User: GUEST";
+			
+			var gameover_font = "30px Arial";
+			var score_font = "25px Arial";
+			
+			window.addEventListener('keydown', function(event) {
+				keycode = event.keyCode;
+			}, false);
+			
+			function detectMob() {
+				const toMatch = [
+					/Android/i,
+					/webOS/i,
+					/iPhone/i,
+					/iPad/i,
+					/iPod/i,
+					/BlackBerry/i,
+					/Windows Phone/i
+				];
+				
+				return toMatch.some((toMatchItem) => {
+					return navigator.userAgent.match(toMatchItem);
+				});
+			}
+			
+			function increase_brightness(hex, percent){
+				// strip the leading # if it's there
+				hex = hex.replace(/^\s*#|\s*$/g, '');
+				// convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+				if(hex.length == 3){
+					hex = hex.replace(/(.)/g, '$1$1');
+				}
+				
+				var r = parseInt(hex.substr(0, 2), 16),
+				g = parseInt(hex.substr(2, 2), 16),
+				b = parseInt(hex.substr(4, 2), 16);
+				
+				return '#' +
+					((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+					((0|(1<<8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+					((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
+			}
+			
+			function invertColor(hexTripletColor) {
+				var color = hexTripletColor;
+				color = color.substring(1); // remove #
+				color = parseInt(color, 16); // convert to integer
+				color = 0xFFFFFF ^ color; // invert three bytes
+				color = color.toString(16); // convert to hex
+				color = ("000000" + color).slice(-6); // pad with leading zeros
+				color = "#" + color; // prepend #
+				return color;
+			}
+			
+			function print_score(score){
+				_textalign = ctx.textAlign;
+				ctx.textAlign = "start";
+				
+				ctx.font = score_font;
+				ctx.fillStyle = food_color;
+				ctx.fillText("Score: " + score, 10, 20);
+				
+				ctx.textAlign = _textalign;
+			}
+			
+			function draw_snake(snake_size, snake_pixels){
+				if(snakeHeadDiffColor){
+					for (let pixel in snake_pixels){
+						ctx.fillStyle = snake_color;
+						ctx.fillRect(snake_pixels[pixel][0], snake_pixels[pixel][1], snake_size, snake_size);
+					}
+					ctx.fillStyle = (snake_color == "#ffffff") ? "#808080" : increase_brightness(snake_color, 50);
+					ctx.fillRect(snake_pixels[Object.keys(snake_pixels).length-1][0],
+					snake_pixels[Object.keys(snake_pixels).length-1][1], snake_size, snake_size);
+				}
+				else{
+					for (let pixel in snake_pixels){
+						ctx.fillStyle = snake_color;
+						ctx.fillRect(snake_pixels[pixel][0], snake_pixels[pixel][1], snake_size, snake_size);
+					}
+				}
+			}
+			
+			function draw_walls(snake_size, wall_pixels){
+				for (let pixel in wall_pixels){
+					ctx.fillStyle = wall_color;
+					ctx.fillRect(wall_pixels[pixel][0], wall_pixels[pixel][1], snake_size, snake_size);
+				}
+			}
+			
+			function change_difficulty(){
+				var newIndex;
+				newIndex = (difficulties.indexOf(difficulty) >= difficulties.length-1) ? 0 : difficulties.indexOf(difficulty) + 1;
+				
+				difficulty = difficulties[newIndex];
+				document.getElementById("settDifficulty").innerHTML = "Difficulty: " + difficulty;
+				
+				if(difficulty == "Easy"){
+					snake_size = snake_sizes[0];
+					snake_speed = snake_speeds[0];
+				}
+				else if(difficulty == "Normal"){
+					snake_size = snake_sizes[1];
+					snake_speed = snake_speeds[1];
+				}
+				else if(difficulty == "Hard"){
+					snake_size = snake_sizes[2];
+					snake_speed = snake_speeds[2];
+				}
+			}
+			
+			function change_onScreenBtns(){
+				onScreenBtns = onScreenBtns ? false : true;
+				document.getElementById("settOnScreenBtns").innerHTML = "On screen controls outline: " + (onScreenBtns ? "on" : "off");
+			}
+			
+			function change_snakeHeadColor(){
+				snakeHeadDiffColor = snakeHeadDiffColor ? false : true;
+				document.getElementById("settSnakeHeadColor").innerHTML = "Snake head different color: " + (snakeHeadDiffColor ? "on" : "off");
+			}
+			
+			function colorPresetNext(){
+				var newIndex;
+				newIndex = (colorPresets.indexOf(colorPreset) >= colorPresets.length-1) ? 0 : colorPresets.indexOf(colorPreset) + 1;
+				
+				colorPreset = colorPresets[newIndex];
+				document.getElementById("colorPresetText").innerHTML = "Color preset: " + colorPreset;
+				
+				drawColorPresetInfo(colorPreset);
+			}
+			
+			function colorPresetPrev(){
+				var newIndex;
+				newIndex = (colorPresets.indexOf(colorPreset) <= 0) ? colorPresets.length-1 : colorPresets.indexOf(colorPreset) - 1;
+				
+				colorPreset = colorPresets[newIndex];
+				document.getElementById("colorPresetText").innerHTML = "Color preset: " + colorPreset;
+				
+				drawColorPresetInfo(colorPreset);
+			}
+			
+			function drawColorPresetInfo(colorPresetName){
+				ctx.fillStyle = "#000000";
+				ctx.fillRect(0, 0, width, height);
+				
+				switch(colorPresetName){
+					case "Default":
+						// snake_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Snake color", width * 0.40 + 75, height * 0.35 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2, 54, 54); // border
+						ctx.fillStyle = "#ffffff";
+						ctx.fillRect(width * 0.40, height * 0.35, 50, 50);
+						// background_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Background color", width * 0.40 + 75, height * 0.35 + 59 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59, 54, 54); // border
+						ctx.fillStyle = "#000000";
+						ctx.fillRect(width * 0.40, height * 0.35 + 59, 50, 50);
+						// food_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Food color", width * 0.40 + 75, height * 0.35 + 59 * 2 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59 * 2, 54, 54); // border
+						ctx.fillStyle = "#008000";
+						ctx.fillRect(width * 0.40, height * 0.35 + 59 * 2, 50, 50);
+						// wall_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Wall color", width * 0.40 + 75, height * 0.35 + 59 * 3 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59 * 3, 54, 54); // border
+						ctx.fillStyle = "#800000";
+						ctx.fillRect(width * 0.40, height * 0.35 + 59 * 3, 50, 50);
+						break;
+					
+					case "Inverted":
+						// snake_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Snake color", width * 0.40 + 75, height * 0.35 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2, 54, 54); // border
+						ctx.fillStyle = invertColor("#ffffff");
+						ctx.fillRect(width * 0.40, height * 0.35, 50, 50);
+						// background_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Background color", width * 0.40 + 75, height * 0.35 + 59 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59, 54, 54); // border
+						ctx.fillStyle = invertColor("#000000");
+						ctx.fillRect(width * 0.40, height * 0.35 + 59, 50, 50);
+						// food_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Food color", width * 0.40 + 75, height * 0.35 + 59 * 2 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59 * 2, 54, 54); // border
+						ctx.fillStyle = invertColor("#008000");
+						ctx.fillRect(width * 0.40, height * 0.35 + 59 * 2, 50, 50);
+						// wall_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Wall color", width * 0.40 + 75, height * 0.35 + 59 * 3 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59 * 3, 54, 54); // border
+						ctx.fillStyle = invertColor("#800000");
+						ctx.fillRect(width * 0.40, height * 0.35 + 59 * 3, 50, 50);
+						break;
+					
+					case "Classic":
+						// snake_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Snake color", width * 0.40 + 75, height * 0.35 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2, 54, 54); // border
+						ctx.fillStyle = "#00c300";
+						ctx.fillRect(width * 0.40, height * 0.35, 50, 50);
+						// background_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Background color", width * 0.40 + 75, height * 0.35 + 59 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59, 54, 54); // border
+						ctx.fillStyle = "#000000";
+						ctx.fillRect(width * 0.40, height * 0.35 + 59, 50, 50);
+						// food_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Food color", width * 0.40 + 75, height * 0.35 + 59 * 2 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59 * 2, 54, 54); // border
+						ctx.fillStyle = "#c30000";
+						ctx.fillRect(width * 0.40, height * 0.35 + 59 * 2, 50, 50);
+						// wall_color
+						ctx.fillStyle = invertColor("#000000");
+						ctx.font = "30px Arial";
+						ctx.fillText("Wall color", width * 0.40 + 75, height * 0.35 + 59 * 3 + 35);
+						ctx.fillRect(width * 0.40 - 2, height * 0.35 - 2 + 59 * 3, 54, 54); // border
+						ctx.fillStyle = "#808080";
+						ctx.fillRect(width * 0.40, height * 0.35 + 59 * 3, 50, 50);
+						break;
+				}
+			}
+			
+			function setColorPreset(colorPresetName){
+				switch(colorPresetName){
+					case "Default":
+						snake_color = "#ffffff";
+						background_color = "#000000";
+						food_color = "#008000";
+						wall_color = "#800000";
+						break;
+					
+					case "Inverted":
+						snake_color = invertColor("#ffffff");
+						background_color = invertColor("#000000");
+						food_color = invertColor("#008000");
+						wall_color = invertColor("#800000");
+						break;
+					
+					case "Classic":
+						snake_color = "#00c300";
+						background_color = "#000000";
+						food_color = "#c30000";
+						wall_color = "#808080";
+						break;
+				}
+			}
+			
+			function show_main_menu(){
+				ctx.fillStyle = "#000000";
+				ctx.fillRect(0, 0, width, height);
+				
+				document.getElementById("playBtn").style.display = "initial";
+				document.getElementById("settingsBtn").style.display = "initial";
+                document.getElementById("toMainPageBtn").style.display = "initial";
+                document.getElementById("profileUsername").style.display = "initial";
+                document.getElementById("title1").style.display = "initial";
+                document.getElementById("title2").style.display = "initial";
+				var nodes = document.getElementById("controlBtns").getElementsByTagName('*');
+				for(var i = 0; i < nodes.length; i++){
+					nodes[i].disabled = true;
+				}
+				nodes = [];
+				nodes = document.getElementById("settings").getElementsByTagName('*');
+				for(var i = 0; i < nodes.length; i++){
+					nodes[i].style.display = "none";
+					nodes[i].disabled = true;
+				}
+				nodes = [];
+				nodes = document.getElementById("controlBtns").getElementsByTagName('*');
+				for(var i = 0; i < nodes.length; i++){
+					nodes[i].style.border = "none";
+				}
+				document.getElementById("fromGametoMainMenuBtn").style.display = "none";
+				document.getElementById("fromGametoMainMenuBtn").disabled = true;
+				document.getElementById("playAgainBtn").style.display = "none";
+				document.getElementById("playAgainBtn").disabled = true;
+				
+				/*_textalign = ctx.textAlign;
+				ctx.textAlign = "center";
+				
+				ctx.font = "85px Arial";
+				ctx.fillStyle = "#800000";
+				ctx.fillText("HARDEST", width / 2, height / 4);
+				ctx.fillStyle = "#808080";
+				ctx.fillText("SNAKE GAME", width / 2, height / 3);
+				
+				ctx.textAlign = _textalign;*/
+			}
+			
+			function show_settings(){
+				document.getElementById("playBtn").style.display = "none";
+				document.getElementById("settingsBtn").style.display = "none";
+                document.getElementById("toMainPageBtn").style.display = "none";
+                document.getElementById("profileUsername").style.display = "none";
+                document.getElementById("title1").style.display = "none";
+                document.getElementById("title2").style.display = "none";
+				var nodes = document.getElementById("controlBtns").getElementsByTagName('*');
+				for(var i = 0; i < nodes.length; i++){
+					nodes[i].disabled = true;
+				}
+				nodes = [];
+				nodes = document.getElementById("settings").getElementsByTagName('*');
+				for(var i = 0; i < nodes.length; i++){
+					nodes[i].style.display = "initial";
+					nodes[i].disabled = false;
+				}
+				document.getElementById("fromGametoMainMenuBtn").style.display = "none";
+				document.getElementById("fromGametoMainMenuBtn").disabled = true;
+				document.getElementById("playAgainBtn").style.display = "none";
+				document.getElementById("playAgainBtn").disabled = true;
+				
+				ctx.fillStyle = "#000000";
+				ctx.fillRect(0, 0, width, height);
+				
+				var colorPresetTextVar = document.getElementById("colorPresetText");
+				colorPresetTextVar.innerHTML = "Color preset: " + colorPreset;
+				drawColorPresetInfo(colorPreset);
+			}
+			
+			function run_game(){
+				document.getElementById("playBtn").style.display = "none";
+				document.getElementById("settingsBtn").style.display = "none";
+                document.getElementById("toMainPageBtn").style.display = "none";
+                document.getElementById("profileUsername").style.display = "none";
+                document.getElementById("title1").style.display = "none";
+                document.getElementById("title2").style.display = "none";
+				var nodes = document.getElementById("controlBtns").getElementsByTagName('*');
+				for(var i = 0; i < nodes.length; i++){
+					nodes[i].disabled = false;
+				}
+				
+				if(onScreenBtns){
+					var nodes = document.getElementById("controlBtns").getElementsByTagName('*');
+					for(var i = 0; i < nodes.length; i++){
+						nodes[i].style.border = "1px solid green";
+					}
+				}
+				document.getElementById("fromGametoMainMenuBtn").style.display = "none";
+				document.getElementById("fromGametoMainMenuBtn").disabled = true;
+				document.getElementById("playAgainBtn").style.display = "none";
+				document.getElementById("playAgainBtn").disabled = true;
+				
+				is_best_score = false;
+				game_over = false;
+				game_close = false;
+				
+				x = Math.round((width / 2) / 10.0) * 10.0;
+				y = Math.round((height / 2) / 10.0) * 10.0;
+				
+				x_speed = 0;
+				y_speed = 0;
+				
+				snake_pixels = [];
+				snake_lenght = 1;
+				
+				wall_pixels = [];
+				
+				food_x = Math.round(Math.floor(Math.random() * (width - snake_size - 20) + 1) / 10.0) * 10.0 + 20;
+				food_y = Math.round(Math.floor(Math.random() * (height - snake_size - 20) + 1) / 10.0) * 10.0 + 20;
+				
+				window.requestAnimationFrame(game_loop);
+			}
+			
+			function game_loop(){
+				if(game_over){return;}
+				// LEFT
+				if(x_speed != snake_size && (keycode == 65 /*A*/ || keycode == 37 /*LEFT ARROW*/)){
+					x_speed = -snake_size;
+					y_speed = 0;
+				}
+				// RIGHT
+				if(x_speed != -snake_size && (keycode == 68 /*D*/ || keycode == 39	/*RIGHT ARROW*/)){
+					x_speed = snake_size;
+					y_speed = 0;
+				}
+				// UP
+				if(y_speed != snake_size && (keycode == 87 /*W*/ || keycode == 38	/*UP ARROW*/)){
+					x_speed = 0;
+					y_speed = -snake_size;
+				}
+				// DOWN
+				if(y_speed != -snake_size && (keycode == 83 /*S*/ || keycode == 40	/*DOWN ARROW*/)){
+					x_speed = 0;
+					y_speed = snake_size;
+				}
+				
+				x += x_speed;
+				y += y_speed;
+				
+				ctx.fillStyle = background_color;
+				ctx.fillRect(0, 0, width, height);
+				ctx.fillStyle = (background_color == "#ffffff") ? "#808080" : increase_brightness(background_color, 10);
+				ctx.fillRect(0, 0, width, 20);
+				
+				ctx.fillStyle = food_color;
+				ctx.fillRect(food_x, food_y, snake_size, snake_size);
+				
+				snake_pixels.push([x, y]);
+				if(Object.keys(snake_pixels).length > snake_lenght){
+					snake_pixels.splice(0, 1);
+				}
+				
+				for(let pixel in snake_pixels.slice(0, Object.keys(snake_pixels).length-1)){
+					if(snake_pixels[pixel][0] == x && snake_pixels[pixel][1] == y){
+						game_close = true;
+					}
+				}
+				
+				for(let pixel in wall_pixels){
+					if(wall_pixels[pixel][0] == x && wall_pixels[pixel][1] == y){
+						game_close = true;
+					}
+				}
+				
+				draw_walls(snake_size, wall_pixels);
+				draw_snake(snake_size, snake_pixels);
+				print_score(snake_lenght - 1);
+				
+				if(x == food_x && y == food_y){
+					food_x = Math.round(Math.floor(Math.random() * (width - snake_size - 20) + 1) / 10.0) * 10.0 + 20;
+					food_y = Math.round(Math.floor(Math.random() * (height - snake_size - 20) + 1) / 10.0) * 10.0 + 20;
+					snake_lenght++;
+					
+					wall_pixels.push([
+						/*x*/Math.round(Math.floor(Math.random() * (width - snake_size - 20) + 1) / 10.0) * 10.0 + 20,
+						/*y*/Math.round(Math.floor(Math.random() * (height - snake_size - 20) + 1) / 10.0) * 10.0 + 20
+					]);
+				}
+				
+				if(x < 0){
+					x = Math.floor(width / 10.0) * 10.0;
+				}
+				if(x > width){
+					x = 0;
+				}
+				if(y < 20){
+					y = Math.floor(height / 10.0) * 10.0;
+				}
+				if(y > height){
+					y = 20;
+				}
+				
+				if(game_close == true){
+					x_speed = 0;
+					y_speed = 0;
+					
+                    if(window.localStorage.getItem("hsgProfileUsername") != undefined || window.localStorage.getItem("hsgProfileUsername") != ""){
+                        var objData = new Object();
+                        objData.username = window.localStorage.getItem("hsgProfileUsername");
+                        objData.score = snake_lenght - 1;
+                        objData.resolution = width + "x" + height;
+                        objData.difficulty = difficulty.toLowerCase();
+                        objData.ismob = is_mob;
+                        console.log(objData);
+                        
+                        $.ajax({
+                            type: 'post',
+                            url: 'https://hardest-snake-game.jelka33.repl.co/evaluate-score',
+                            data: JSON.stringify(objData),
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: function(data){
+                                console.log(data.msg);
+                                if(data.msg == "Best score"){
+                                    is_best_score = true;
+                                }
+                            }
+                        });
+                    }
+					window.requestAnimationFrame(game_over_screen);
+					return;
+				}
+				
+				window.setTimeout(function() {window.requestAnimationFrame(game_loop);}, 1000 / snake_speed);
+			}
+			
+			function game_over_screen(){
+				//ctx.fillStyle = background_color;
+				//ctx.fillRect(0, 0, width, height);
+				
+				if(!is_gameover_drawn){
+					ctx.fillStyle = (background_color == "#ffffff") ? "#808080" : increase_brightness(background_color, 10);
+					ctx.fillRect(0, 0, width, 20);
+					
+					ctx.textAlign = "center";
+					
+					ctx.font = gameover_font;
+					ctx.fillStyle = "#800000";
+					ctx.fillText("Game Over", width / 2, height / 2);
+					
+					print_score(snake_lenght - 1);
+					
+					ctx.font = score_font;
+					ctx.fillStyle = "#808080";
+					ctx.fillText("Press Escape for Main Menu or Space to play again", width / 2, (height / 2) + 50);
+					
+					ctx.textAlign = "start";
+					
+					document.getElementById("fromGametoMainMenuBtn").style.display = "initial";
+					document.getElementById("fromGametoMainMenuBtn").disabled = false;
+					document.getElementById("playAgainBtn").style.display = "initial";
+					document.getElementById("playAgainBtn").disabled = false;
+					
+					is_gameover_drawn = true;
+				}
+				
+				if(keycode == 27/*ESCAPE*/){
+					is_gameover_drawn = false;
+					show_main_menu();
+					return;
+				}
+				if(keycode == 32/*SPACE*/){
+					is_gameover_drawn = false;
+					run_game();
+					return;
+				}
+				
+				window.requestAnimationFrame(game_over_screen);
+			}
+		</script>
+	</body>
+</html>

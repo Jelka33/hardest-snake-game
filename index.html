@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hardest Snake Game</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDXDQC3273"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BDXDQC3273');
+        </script>
+
+        <style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            p {
+                color: white;
+            }
+
+            h1 {
+                color: white;
+                font-size: 3.906vw;
+                text-align: center;
+            }
+
+            h2 {
+                color: white;
+                font-size: 2vw;
+                text-align: center;
+            }
+
+            button {
+                width: 10.417vw;
+                height: 10.672vh;
+                background-color: white;
+                border: none;
+                font-size: 1.04vw;
+                font-weight: bold;
+                transition: 0.4s;
+            }
+
+            button:hover {
+                background-color: gray;
+                color: white;
+            }
+
+            #view-code-btn {
+                margin-left: 10px;
+            }
+
+            .top-nav-bar {
+                background-color: gray;
+                overflow: hidden;
+            }
+
+            .top-nav-bar button {
+                width: auto;
+                height: 25px;
+
+                float: right;
+                background-color: gray;
+                font-size: 15px;
+            }
+
+            .top-nav-bar button:hover {
+                background-color: rgb(70, 70, 70);
+            }
+
+            .beggining-subcontainer {
+                padding: 30vh 25vw 15vh;
+                background-color: black;
+            }
+
+            .beggining-game-description {
+                text-align: center;
+                color: white;
+                font-size: 1.563vw;
+            }
+
+            .beggining-buttons-container {
+                height: 100px;
+                width: 70%;
+                margin: 50px auto 0;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .how-to-play-container {
+                padding: 1px 10px;
+                background-color: rgb(30, 30, 30);
+                box-shadow: 0px 10px 10px rgb(20, 20, 20) inset;
+            }
+
+            .howto-imgs-container {
+                margin: 10px 25vw;
+            }
+
+            .img-text-pair {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+            }
+            
+            .howto-imgs {
+                width: 50%;
+            }
+
+            .howto-text {
+                padding: 0 20px;
+                font-size: 1vw;
+            }
+
+            .footer {
+                padding: 50px 0;
+                background-color: rgb(20, 20, 20);
+                box-shadow: 0px 10px 10px rgb(10, 10, 10) inset;
+            }
+
+            .footer-upper {
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            .footer-buttons {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .copyright-notice {
+                padding: 10px 0 0;
+                text-align: center;
+            }
+
+            @media only screen and (max-width: 480px) {
+                h1 {
+                    font-size: 9vw;
+                }
+
+                h2 {
+                    font-size: 6vw;
+                }
+
+                button {
+                    width: 100%;
+                    font-size: 3.5vw;
+                }
+
+                #view-code-btn {
+                    margin-top: 10px;
+                    margin-left: 0;
+                }
+
+                .beggining-subcontainer {
+                    width: 100%;
+                    padding: 15vh 0 25vh;
+                }
+
+                .beggining-game-description {
+                    font-size: 5vw;
+                }
+
+                .beggining-buttons-container {
+                    width: auto;
+                    margin: 50px 20.83% 0;
+                    display: block;
+                }
+
+                .top-nav-bar button {
+                    font-size: 3.125vw;
+                }
+
+                .howto-imgs-container {
+                    margin: 10px 10px;
+                }
+
+                .img-text-pair {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .howto-imgs {
+                    width: 100%;
+                }
+
+                .howto-text {
+                    padding: 0 20px;
+                    font-size: 3.5vw;
+                }
+
+                #flip-text-img-order { order: 2 }
+                #flip-img-text-order { order: 1 }
+
+                .footer-upper {
+                    display: flex;
+                    justify-content: space-evenly;
+                    flex-direction: column;
+                }
+
+                .footer-buttons {
+                    display: block;
+                    margin: 0 10px;
+                }
+
+                .footer-author p {
+                    text-align: center;
+                }
+            }
+        </style>
+    </head>
+    <body style="margin:0;">
+        <div class="top-nav-bar">
+            <a href="/hardest-snake-game/" id="logout-btn"><button onclick="logout()">Logout</button></a>
+            <a href="account-info.html" id="acc-info-btn"><button></button></a>
+            <a href="login-signup.html?form=signup" id="signup-btn"><button>Sign up</button></a>
+            <a href="login-signup.html" id="login-btn"><button>Log in</button></a>
+            <a href="leaderboard.html"><button>Leaderboard</button></a>
+            <a href="/hardest-snake-game/"><button style="float: left;">Hardest Snake Game</button></a>
+        </div>
+        <div class="beggining-img-container">
+            <div class="beggining-subcontainer">
+                <h1>Hardest Snake Game</h1>
+                <p class="beggining-game-description">Smaller snake, bigger terrain<br>every food adds wall</p>
+                <div class="beggining-buttons-container">
+                    <a href="game.html"><button>Play Now</button></a>
+                    <a href="#"><button id="view-code-btn">View Code<br>on Github</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="how-to-play-container">
+            <h2>HOW TO PLAY</h2>
+            <div class="howto-imgs-container">
+                <div class="img-text-pair">
+                    <img class="howto-imgs" src="images/hsg-movement.png" alt="">
+                    <p class="howto-text">To change direction in which snake is going use W, A, S and D keys or arrow keys,
+                        but you can not go directly in opposite direction.
+                    </p>
+                </div>
+                <br>
+                <br>
+                <div class="img-text-pair">
+                    <p class="howto-text" id="flip-text-img-order">If you have touchscreen or play with mouse, you can click on edges of screen
+                        to change direction. By default on-screen buttons are invisible, but you can make them visible
+                        through option 'On screen controls outline' in settings. Buttons are clickable even if they
+                        are not visible.
+                    </p>
+                    <img class="howto-imgs" src="images/hsg-movement-2.png" alt="" id="flip-img-text-order">
+                </div>
+                <br>
+                <br>
+                <div class="img-text-pair">
+                    <img class="howto-imgs" src="images/hsg-rules.png" alt="">
+                    <p class="howto-text">By eating food you get score and become longer. Do not run into walls or
+                        yourself, that means game over.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-upper">
+                <h2>Hardest Snake Game</h2>
+                <div class="footer-buttons">
+                    <a href="game.html"><button>Play Now</button></a>
+                    <a href="#"><button id="view-code-btn">View Code<br>on Github</button></a>
+                </div>
+                <div class="footer-author">
+                    <p>Built by Jelka</p>
+                </div>
+            </div>
+            <div class="copyright-notice">
+                <p>Copyright &copy; 2022, Jelka33<br>All rights reserved.
+                    <br><br>For more information read <a href="https://jelka33.github.io/hardest-snake-game/LICENSE.txt">license</a>.</p>
+            </div>
+        </div>
+        <script>
+            document.getElementById('acc-info-btn').style.display = "none";
+            document.getElementById('logout-btn').style.display = "none";
+
+            var objData = new Object();
+            objData.username = window.localStorage.getItem('hsgProfileUsername');
+            objData.token = window.localStorage.getItem('hsgProfileToken');
+
+            $.ajax({
+                type: 'post',
+                url: 'https://hardest-snake-game.jelka33.repl.co/login-user-bysession',
+                data: JSON.stringify(objData),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data){
+                    console.log(data.msg);
+                    if(data.msg == "Login: success"){
+                        document.getElementById('signup-btn').style.display = "none";
+                        document.getElementById('login-btn').style.display = "none";
+                        document.getElementById('acc-info-btn').style.display = "initial";
+                        document.getElementById('acc-info-btn').getElementsByTagName('BUTTON')[0].innerHTML = "User: " + window.localStorage.getItem('hsgProfileUsername');
+                        document.getElementById('logout-btn').style.display = "initial";
+                    }
+                    else{
+                        window.localStorage.removeItem('hsgProfileUsername');
+                        window.localStorage.removeItem('hsgProfileToken');
+                    }
+                }
+            });
+
+            function logout(){
+                window.localStorage.removeItem('hsgProfileUsername');
+                window.localStorage.removeItem('hsgProfileToken');
+            }
+        </script>
+    </body>
+</html>

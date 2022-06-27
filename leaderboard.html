@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Leaderboard | Hardest Snake Game</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDXDQC3273"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BDXDQC3273');
+        </script>
+
+        <style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            h1 {
+                color: white;
+                font-size: 3.906vw;
+                text-align: center;
+            }
+
+            button {
+                width: 10.417vw;
+                height: 10.672vh;
+                background-color: white;
+                border: none;
+                font-size: 1.04vw;
+                font-weight: bold;
+                transition: 0.4s;
+            }
+
+            button:hover {
+                background-color: gray;
+                color: white;
+            }
+
+            .top-nav-bar {
+                background-color: gray;
+                overflow: hidden;
+            }
+
+            .top-nav-bar button {
+                width: auto;
+                height: 25px;
+
+                float: right;
+                background-color: gray;
+                font-size: 15px;
+            }
+
+            .top-nav-bar button:hover {
+                background-color: rgb(70, 70, 70);
+            }
+
+            .beggining-img-container {
+                position: relative;
+            }
+
+            .beggining-subcontainer {
+                position: absolute;
+                top: 10.277vh;
+                left: 50%;
+                padding-bottom: 50px;
+                transform: translate(-50%, 0%);
+            }
+
+            .pc-mob-buttons {
+                display: flex;
+                justify-content: space-evenly;
+                margin: 0px auto 20px;
+            }
+
+            .difficulty-buttons {
+                display: flex;
+                justify-content: space-between;
+                width: 110%;
+                margin: 0px auto 50px;
+            }
+
+            .leaderboard-container {
+                display: table;
+                margin: 0 auto;
+            }
+
+            .leaderboard-btn {
+                width: 10.672vw;
+                height: 5.139vh;
+                border: 5px solid #ffffff;
+                background-color: black;
+                color: white;
+            }
+
+            .leaderboard-btn:hover {
+                background-color: gray;
+                color: white;
+            }
+
+            .tg th{
+                border-color: white;
+                border-style: solid;
+                border-width: 1px;
+                font-family: Arial, sans-serif;
+                font-size: 0.73vw;
+                font-weight: normal;
+                overflow: hidden;
+                padding: 10px 5px;
+                word-break: normal;
+
+                font-weight: bold;
+                color: white;
+                text-align: center;
+                vertical-align: top;
+            }
+
+            .tg td{
+                border-color: white;
+                border-style: solid;
+                border-width: 1px;
+                font-family: Arial, sans-serif;
+                font-size: 0.73vw;
+                overflow: auto;
+                padding: 10px 5px;
+                height: 0.83vw;
+
+                text-align: left;
+                word-break: break-all;
+                color: white;
+                vertical-align: top;
+            }
+
+            @media only screen and (max-width: 480px) {
+                button {
+                    font-size: 3.5vw;
+                }
+
+                .top-nav-bar button {
+                    font-size: 3.125vw;
+                }
+
+                .pc-mob-buttons {
+                    margin: 0 0 30px;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .difficulty-buttons {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                }
+
+                .leaderboard-btn {
+                    width: 100%;
+                    margin: 0 0 5px;
+                }
+
+                .tg th {
+                    font-size: 3vw;
+                }
+
+                .tg td {
+                    font-size: 3vw;
+                }
+            }
+        </style>
+    </head>
+    <body style="margin:0; background: black;">
+        <div class="top-nav-bar">
+            <a href="/hardest-snake-game/" id="logout-btn"><button onclick="logout()">Logout</button></a>
+            <a href="account-info.html" id="acc-info-btn"><button></button></a>
+            <a href="login-signup.html?form=signup" id="signup-btn"><button>Sign up</button></a>
+            <a href="login-signup.html" id="login-btn"><button>Log in</button></a>
+            <a href="leaderboard.html"><button>Leaderboard</button></a>
+            <a href="/hardest-snake-game/"><button style="float: left;">Hardest Snake Game</button></a>
+        </div>
+        <div class="beggining-img-container">
+            <div class="beggining-subcontainer">
+                <h1>Leaderboard</h1>
+                <div class="pc-mob-buttons">
+                    <button class="leaderboard-btn" onclick="ismob = false; updateLeaderboard();">PC</button>
+                    <button class="leaderboard-btn" onclick="ismob = true; updateLeaderboard();">Mobile</button>
+                </div>
+                <div class="difficulty-buttons">
+                    <button class="leaderboard-btn" onclick="changeDifficulty('easy'); updateLeaderboard();">Easy</button>
+                    <button class="leaderboard-btn" onclick="changeDifficulty('normal'); updateLeaderboard();">Normal</button>
+                    <button class="leaderboard-btn" onclick="changeDifficulty('hard'); updateLeaderboard();">Hard</button>
+                </div>
+                <div class="leaderboard-container">
+                    <table class="tg">
+                        <thead>
+                          <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Best Score</th>
+                            <th>Resolution</th>
+                          </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script>
+            var ismob = false;
+            var difficulty = "easy";
+
+            document.getElementById('acc-info-btn').style.display = "none";
+            document.getElementById('logout-btn').style.display = "none";
+
+            var objData = new Object();
+            objData.username = window.localStorage.getItem('hsgProfileUsername');
+            objData.token = window.localStorage.getItem('hsgProfileToken');
+
+            $.ajax({
+                type: 'post',
+                url: 'https://hardest-snake-game.jelka33.repl.co/login-user-bysession',
+                data: JSON.stringify(objData),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data){
+                    console.log(data.msg);
+                    if(data.msg == "Login: success"){
+                        document.getElementById('signup-btn').style.display = "none";
+                        document.getElementById('login-btn').style.display = "none";
+                        document.getElementById('acc-info-btn').style.display = "initial";
+                        document.getElementById('acc-info-btn').getElementsByTagName('BUTTON')[0].innerHTML = "User: " + window.localStorage.getItem('hsgProfileUsername');
+                        document.getElementById('logout-btn').style.display = "initial";
+                    }
+                    else{
+                        window.localStorage.removeItem('hsgProfileUsername');
+                        window.localStorage.removeItem('hsgProfileToken');
+                    }
+                }
+            });
+
+            updateLeaderboard();
+            function updateLeaderboard(){
+                $.getJSON("https://hardest-snake-game.jelka33.repl.co/get-leaderboard", function(data){
+                    var table = document.getElementById("leaderboard-body");
+                    var rows = [];
+                    var cells = {};
+                    var values = [];
+                    var empty = true;
+                    $("#leaderboard-body tr").remove();
+
+                    for(var i = 0; i < data.numvalues; i++){
+                        if(ismob){
+                            if(data["mobile"][i]["difficulty"] == difficulty){
+                                values[0] = data["mobile"][i]["rank"];
+                                values[1] = data["mobile"][i]["username"];
+                                values[2] = data["mobile"][i]["best-score"];
+                                values[3] = data["mobile"][i]["resolution"];
+                                empty = false;
+                            }
+                            else{
+                                empty = true;
+                            }
+                        }
+                        else{
+                            if(data["pc"][i]["difficulty"] == difficulty){
+                                values[0] = data["pc"][i]["rank"];
+                                values[1] = data["pc"][i]["username"];
+                                values[2] = data["pc"][i]["best-score"];
+                                values[3] = data["pc"][i]["resolution"];
+                                empty = false;
+                            }
+                            else{
+                                empty = true;
+                            }
+                        }
+
+                        if(!empty){
+                            rows[i] = table.insertRow();
+                            for(var j = 0; j < 4; j++){
+                                cells[i] = {};
+                                cells[i][j] = rows[i].insertCell();
+                                cells[i][j].innerHTML = values[j];
+                            }
+                        }
+                    }
+                });
+            }
+
+            function changeDifficulty(diff){
+                difficulty = diff;
+            }
+            
+            function logout(){
+                window.localStorage.removeItem('hsgProfileUsername');
+                window.localStorage.removeItem('hsgProfileToken');
+            }
+        </script>
+    </body>
+</html>

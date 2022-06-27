@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Log in or Sing up | Hardest Snake Game</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDXDQC3273"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BDXDQC3273');
+        </script>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .main-container {
+                height: 100%;
+                width: 100%;
+                background: linear-gradient(to bottom, #808080 0%, #FFFFFF 100%);
+                background-position: center;
+                background-size: cover;
+                position: absolute;
+            }
+
+            .form-box {
+                width: 380px;
+                height: 480px;
+                position: relative;
+                margin: 6% auto;
+                background: #ffffff;
+                padding: 5px;
+                overflow: hidden;
+            }
+
+            .button-box {
+                width: 220px;
+                margin: 35px auto;
+                position: relative;
+                box-shadow: 0 0 10px 5px gray;
+                border-radius: 30px;
+            }
+
+            #btns-background {
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 110px;
+                height: 100%;
+                background: gray;
+                border-radius: 30px;
+            }
+
+            .toggle-btn {
+                padding: 10px 30px;
+                background: transparent;
+                border: 0;
+                outline: none;
+                position: relative;
+                cursor: pointer;
+            }
+
+            .input-group {
+                top: 180px;
+                width: 280px;
+                position: absolute;
+                transition: 0.5s;
+            }
+
+            .input-field {
+                width: 100%;
+                padding: 10px 0px;
+                margin: 5px 0px;
+                border-left: 0;
+                border-top: 0;
+                border-right: 0;
+                border-bottom: 1px solid #999999;
+                outline: none;
+                background: transparent;
+            }
+
+            .submit-btn {
+                width: 85%;
+                padding: 10px 30px;
+                display: block;
+                margin: auto;
+                background: gray;
+                border: 0;
+                outline: none;
+                cursor: pointer;
+                border-radius: 30px;
+            }
+
+            .check-box {
+                margin: 30px 10px 30px 0;
+            }
+
+            span {
+                color: #777777;
+                font-size: 12px;
+                bottom: 64px;
+                position: absolute;
+            }
+
+            label {
+                color: #777777;
+                font-size: 12px;
+            }
+
+            #login-form {
+                left: 50px;
+            }
+
+            #signup-form {
+                left: 450px;
+            }
+
+            #toMainPageBtn {
+                width: auto;
+                height: 25px;
+                background-color: transparent;
+                color: black;
+                font-weight: bold;
+                font-size: 15px;
+                border: none;
+                transition: 0.4s;
+            }
+
+            #toMainPageBtn:hover {
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main-container">
+            <a href="/hardest-snake-game/"><button id="toMainPageBtn">Hardest Snake Game</button></a>
+            <div class="form-box">
+                <div class="button-box">
+                    <div id="btns-background"></div>
+                    <button type="button" class="toggle-btn" onclick="select_login()">Log in</button>
+                    <button type="button" class="toggle-btn" onclick="select_signup()">Sign up</button>
+                </div>
+                <form class="input-group" id="login-form" action="">
+                    <input type="text" class="input-field" name="username" placeholder="Username" required>
+                    <input type="password" class="input-field" name="password" placeholder="Password" required>
+                    <input type="checkbox" class="check-box" name="remember me"><span>Remember me</span>
+                    <button type="button" class="submit-btn" onclick="login()">Log in</button>
+                </form>
+                <form class="input-group" id="signup-form" action="">
+                    <input type="text" class="input-field" name="username" placeholder="Username" required>
+                    <input type="text" class="input-field" name="email" placeholder="Email" id="email-input">
+                    <input type="password" class="input-field" name="password" placeholder="Password" required>
+                    <button type="button" class="submit-btn" onclick="signup()">Sign up</button>
+                    <br><br>
+                    <label for="email-input">Email is not required but is needed if you forgot password and want to request change!</label>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            var login_form = document.getElementById("login-form");
+            var signup_form = document.getElementById("signup-form");
+            var btns_background = document.getElementById("btns-background");
+
+            var urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.get("form") === "signup"){
+                select_signup();
+            }
+
+            function select_login(){
+                login_form.style.left = "50px";
+                signup_form.style.left = "450px";
+                btns_background.style.left = "0px";
+            }
+            function select_signup(){
+                login_form.style.left = "-400px";
+                signup_form.style.left = "50px";
+                btns_background.style.left = "110px";
+            }
+
+            function login(){
+                $.ajax({
+                    type: 'post',
+                    url: 'https://hardest-snake-game.jelka33.repl.co/login-user',
+                    data: $('#login-form').serialize(),
+                    success: function(data){
+                        console.log(data.msg);
+                        if(data.msg == "Logged in"){
+                            window.localStorage.setItem('hsgProfileToken', data.token);
+                            $.each($('#login-form').serializeArray(), function(i, field){
+                                if(field.name == "username")
+                                    window.localStorage.setItem('hsgProfileUsername', field.value);
+                                    window.localStorage.setItem("hsgProfileToken", data.token);
+                            });
+                            window.location.href = '/hardest-snake-game/';
+                        }
+                    }
+                });
+            }
+            function signup(){
+                $.ajax({
+                    type: 'post',
+                    url: 'https://hardest-snake-game.jelka33.repl.co/signup-user',
+                    data: $('#signup-form').serialize(),
+                    success: function(data){
+                        console.log(data.msg);
+                        if(data.msg == "Signed up successfully"){
+                            window.localStorage.setItem('hsgProfileToken', data.token);
+                            $.each($('#signup-form').serializeArray(), function(i, field){
+                                if(field.name == "username")
+                                    window.localStorage.setItem('hsgProfileUsername', field.value);
+                                    window.localStorage.setItem("hsgProfileToken", data.token);
+                            });
+                            window.location.href = '/hardest-snake-game/';
+                        }
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

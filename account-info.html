@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hardest Snake Game</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDXDQC3273"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BDXDQC3273');
+        </script>
+
+        <style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            h1 {
+                color: white;
+                font-size: 3.906vw;
+                text-align: center;
+            }
+
+            .button {
+                width: 5vw;
+                height: 3vw;
+                background-color: white;
+                border: none;
+                font-size: 1vw;
+                font-weight: bold;
+                transition: 0.4s;
+            }
+
+            .button:hover {
+                background-color: gray;
+                color: white;
+            }
+
+            .top-nav-bar {
+                background-color: gray;
+                overflow: hidden;
+            }
+
+            .top-nav-bar button {
+                width: auto;
+                height: 25px;
+
+                float: right;
+                background-color: gray;
+                border: none;
+                font-size: 15px;
+                font-weight: bold;
+                transition: 0.4s;
+            }
+
+            .top-nav-bar button:hover {
+                background-color: rgb(70, 70, 70);
+                color: white;
+            }
+
+            .acc-holder {
+                position: absolute;
+                top: 35vh;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                width: 380px;
+                height: 480px;
+                margin: 6% auto;
+                background: transparent;
+                color: white;
+                padding: 5px;
+            }
+
+            .input-field {
+                background: transparent;
+                color: white;
+                outline: none;
+                border-left: 0;
+                border-top: 0;
+                border-right: 0;
+                border-bottom: 1px solid white;
+            }
+
+            .input-field::placeholder {
+                color: #cccccc;
+                opacity: 1;
+            }
+
+            @media only screen and (max-width: 480px) {
+                .top-nav-bar button {
+                    font-size: 3.125vw;
+                }
+
+                .button {
+                    width: 50vw;
+                    height: 10vw;
+                    font-size: 5vw;
+                    margin: 5px 0 0;
+                }
+
+                .acc-holder {
+                    width: 100%;
+                    height: 100%;
+                    top: 55vh;
+                    left: 50%;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .form {
+                    margin: 0 100px;
+                    width: auto;
+                }
+            }
+        </style>
+    </head>
+    <body style="margin:0; background-color: black;">
+        <div class="top-nav-bar">
+            <a href="/hardest-snake-game/" id="logout-btn"><button onclick="logout()">Logout</button></a>
+            <a href="account-info.html" id="acc-info-btn"><button></button></a>
+            <a href="leaderboard.html"><button>Leaderboard</button></a>
+            <a href="/hardest-snake-game/"><button style="float: left;">Hardest Snake Game</button></a>
+        </div>
+        <div class="acc-holder">
+            <p style="font-size: 30px; text-align: center;">Account info</p>
+            <form class="form" action="">
+                <label for="">Username: <label for="" id="username-label">a</label></label>
+                <br>
+                <input type="text" class="input-field" name="username" id="username-input" placeholder="New username">
+                <input type="button" class="button" onclick="changeUsername()" value="Change">
+                <br><br><br>
+                <label for="">Email: <label for="" id="email-label">a</label></label>
+                <br>
+                <input type="text" class="input-field" name="email" id="email-input" placeholder="New email">
+                <input type="button" class="button" onclick="changeEmail()" value="Change">
+                <br><br><br>
+                <label for="">Password</label>
+                <br>
+                <input type="text" class="input-field" name="old-password" id="oldpassword-input" placeholder="Old password">
+                <br><br>
+                <input type="text" class="input-field" name="new-password" id="newpassword-input" placeholder="New password">
+                <br><br>
+                <input type="button" class="button" onclick="changePassword()" value="Change">
+            </form>
+        </div>
+        <script>
+            if(window.localStorage.getItem("hsgProfileUsername") == null || window.localStorage.getItem("hsgProfileUsername") == ""){
+                window.location.href = "/hardest-snake-game/";
+            }
+            document.getElementById('acc-info-btn').style.display = "initial";
+            document.getElementById('acc-info-btn').getElementsByTagName('BUTTON')[0].innerHTML = "User: " + window.localStorage.getItem('hsgProfileUsername');
+
+            var objData = new Object();
+            objData.username = window.localStorage.getItem('hsgProfileUsername');
+            objData.token = window.localStorage.getItem('hsgProfileToken');
+
+            $.ajax({
+                type: 'post',
+                url: 'https://hardest-snake-game.jelka33.repl.co/get-userinfo',
+                data: JSON.stringify(objData),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function(data){
+                    console.log(data.msg);
+                    if(data.msg == "Success"){
+                        document.getElementById('username-label').innerHTML = window.localStorage.getItem('hsgProfileUsername');
+                        document.getElementById('email-label').innerHTML = data.email;
+                    }
+                }
+            });
+
+            function changeUsername(){
+                var objData = new Object();
+                objData.username = window.localStorage.getItem('hsgProfileUsername');
+                objData.token = window.localStorage.getItem('hsgProfileToken');
+                objData.type = 'username';
+                objData.newusername = document.getElementById('username-input').value;
+
+                $.ajax({
+                    type: 'post',
+                    url: 'https://hardest-snake-game.jelka33.repl.co/change-userinfo',
+                    data: JSON.stringify(objData),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function(data){
+                        console.log(data.msg);
+                        if(data.msg == "Success"){
+                            window.localStorage.setItem('hsgProfileUsername', data.newusername);
+                            location.reload();
+                        }
+                    }
+                });
+            }
+
+            function changeEmail(){
+                var objData = new Object();
+                objData.username = window.localStorage.getItem('hsgProfileUsername');
+                objData.token = window.localStorage.getItem('hsgProfileToken');
+                objData.type = 'email';
+                objData.newemail = document.getElementById('email-input').value;
+
+                $.ajax({
+                    type: 'post',
+                    url: 'https://hardest-snake-game.jelka33.repl.co/change-userinfo',
+                    data: JSON.stringify(objData),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function(data){
+                        console.log(data.msg);
+                        if(data.msg == "Success"){
+                            location.reload();
+                        }
+                    }
+                });
+            }
+
+            function changePassword(){
+                var objData = new Object();
+                objData.username = window.localStorage.getItem('hsgProfileUsername');
+                objData.token = window.localStorage.getItem('hsgProfileToken');
+                objData.type = 'password';
+                objData.oldpassword = document.getElementById('oldpassword-input').value;
+                objData.newpassword = document.getElementById('newpassword-input').value;
+
+                $.ajax({
+                    type: 'post',
+                    url: 'https://hardest-snake-game.jelka33.repl.co/change-userinfo',
+                    data: JSON.stringify(objData),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function(data){
+                        console.log(data.msg);
+                        if(data.msg == "Success"){
+                            location.reload();
+                        }
+                    }
+                });
+            }
+
+            function logout(){
+                window.localStorage.removeItem('hsgProfileUsername');
+                window.localStorage.removeItem('hsgProfileToken');
+            }
+        </script>
+    </body>
+</html>

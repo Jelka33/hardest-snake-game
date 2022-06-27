@@ -1,4 +1,4 @@
-#Hardest Snake Game
+# Hardest Snake Game
 Code for my first game made with HTML.
 
 Front-end is only HTML, CSS and JavaScrpt (with jQuery).
